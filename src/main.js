@@ -13,6 +13,9 @@ Vue.config.productionTip = false
      */
 
 new Vue({
+    beforeCreate() {
+        Vue.prototype.$bus = this; //安装事件总线
+    },
     render: h => h(App),
     // components:{
     //     App

@@ -12,7 +12,7 @@
 <script>
 export default {
     name:"Header",
-    props:['addTodo'],
+    // props:['addTodo'],
     data(){
         console.log("Header",this);
         return{
@@ -24,12 +24,16 @@ export default {
             console.log(this.name);
             if(!this.name.trim()){
                 alert('不能为空');
+                return
             }
             //根据用户的输入添加一个对象
             const todoObj = {id:Date.now(),name:this.name,done:false};
             console.log(todoObj);
-            //通知App添加一个todo
-            this.addTodo(todoObj);
+            // //通知App添加一个todo
+            // this.addTodo(todoObj);
+
+             //使用自定义事件通知App添加一个todo
+            this.$emit("add-todo",todoObj);
             this.name="";
         },
         

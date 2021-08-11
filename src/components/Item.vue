@@ -1,5 +1,5 @@
 <template>
-    <li   :class="{ba:isEnter}" @mouseenter="isEnter=true" @mouseleave="isEnter=false">
+    <li  :class="{ba:isEnter}" @mouseenter="isEnter=true" @mouseleave="isEnter=false">
         <label>
         <!-- 使用v-model绑定 -->
         <!-- <input type="checkbox" v-model="checked" @click="update(todo.id)" /> -->

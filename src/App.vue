@@ -2,7 +2,9 @@
   <div id="app">
      <div class="todo-container">
         <div class="todo-wrap">
-          <Header :addTodo = "addTodo"/>
+          <!-- <Header :addTodo = "addTodo"/> -->
+          <!-- 使用自定义事件实现 -->
+          <Header @add-todo="addTodo"/>
           <List :nameItems="nameItems" :updateTodo= 'updateTodo' :deleteTodo="deleteTodo"/>
           <Footer
            :nameItems="nameItems"
@@ -11,6 +13,11 @@
            />
         </div>
      </div>
+     <hr>
+     <div>
+       <Demo1/>
+       <Demo2/>
+     </div>
   </div>
 </template>
 
@@ -18,25 +25,34 @@
 /* eslint-disable*/
 import Header from './components/Header.vue';
 import List from './components/List.vue';
-import Footer from './components/Footer.vue'
+import Footer from './components/Footer.vue';
+import Demo1 from './components/Demo1.vue';
+import Demo2 from './components/Demo2.vue'
 
 export default {
   name: 'App',
   data() {
     console.log("APP",this);
+    let fTodos;
+    
+    try{
+      let getTodos = localStorage.getItem("todos") || [];
+      fTodos = JSON.parse(getTodos);
+    }catch(err){
+      alert('本地存储有误，已清除');
+      localStorage.removeItem("todos");
+      fTodos = []
+    }
     return {
-      nameItems:[
-                {id:"001",name:"smokes",done:false},
-                {id:"002",name:"drink",done:true},
-                {id:"003",name:"coding",done:false},
-                {id:"004",name:"perm",done:true}
-              ]
+      nameItems:fTodos
     }
   },
   components: {
     Header,
     List,
-    Footer
+    Footer,
+    Demo1,
+    Demo2
   },
   methods:{
     //添加一个todo
@@ -76,6 +92,14 @@ export default {
       this.nameItems = this.nameItems.filter((val)=>{
         return val.done === false
       })
+    }
+  },
+  watch:{
+    nameItems:{
+      deep:true, //开启深度检测，vue默认不开起，解决当done属性发生变化时，localStorage中存储的done不改变
+      handler(value){
+        localStorage.setItem("todos",JSON.stringify(value));
+      }
     }
   }
 }
