@@ -18,6 +18,63 @@
        <Demo1/>
        <Demo2/>
      </div>
+     <hr>
+     <Testslot>
+       <template slot="header">
+        <div>我是app传过来的header</div>
+        <div>我是app传过来的header</div>
+        <div>我是app传过来的header</div>
+       </template>
+       <h1>wo shi app gei zi zu jian de html jie gou</h1>
+     </Testslot>
+     <hr>
+     <div class="appCate">
+        <Category title="games">
+           <template slot="youxi">
+             <div>
+                <ul>
+                  <li v-for="(ca,index) in categorys" :key="ca.id" :index = index>
+                      {{ca.name}} ------ {{ca.price}}
+                  </li>
+                </ul>
+             </div>
+           </template>
+        </Category>
+        <Category title="food" >
+          <template slot="meishi">
+            <div>
+              <img :src="src" alt="" />
+            </div>
+          </template>
+            
+        </Category>
+        <Category title="video" >
+          <template slot="movie">
+            <div>
+              <video controls :src="videoUrl"></video>
+            </div>
+          </template>
+            
+        </Category>
+
+     </div>
+     
+     <hr/><br/>
+     <div>
+        <el-tree :data="dataTree" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+     </div>
+
+     <hr/><br/><hr/><br/>
+     <h2>github serach</h2>
+
+     <div>
+        <div class="container">
+          <Serach/>
+          <Gitlist/>
+        </div>
+     </div>
+      
+
   </div>
 </template>
 
@@ -27,7 +84,11 @@ import Header from './components/Header.vue';
 import List from './components/List.vue';
 import Footer from './components/Footer.vue';
 import Demo1 from './components/Demo1.vue';
-import Demo2 from './components/Demo2.vue'
+import Demo2 from './components/Demo2.vue';
+import Testslot from './components/Testslot.vue';
+import Category from './components/Category.vue';
+import Serach from './components/guithubserach/Serach.vue';
+import Gitlist from './components/guithubserach/List.vue'
 
 export default {
   name: 'App',
@@ -44,7 +105,54 @@ export default {
       fTodos = []
     }
     return {
-      nameItems:fTodos
+      nameItems:fTodos,
+      categorys:[
+        {id:"001",name:"cs",price:'100'},
+        {id:"002",name:"lol",price:'200'},
+        {id:"003",name:"jd",price:'300'}
+      ],
+      src:"https://s3.ax1x.com/2021/01/16/srJ1q0.jpg",
+      videoUrl:'https://v-cdn.zjol.com.cn/276984.mp4',
+      dataTree: [{
+          label: '一级 1',
+          id:"Troot",
+          children: [{
+            label: '二级 1-1',
+            children: [{
+              label: '三级 1-1-1'
+            }]
+          }]
+        }, {
+          label: '一级 2',
+          children: [{
+            label: '二级 2-1',
+            children: [{
+              label: '三级 2-1-1'
+            }]
+          }, {
+            label: '二级 2-2',
+            children: [{
+              label: '三级 2-2-1'
+            }]
+          }]
+        }, {
+          label: '一级 3',
+          children: [{
+            label: '二级 3-1',
+            children: [{
+              label: '三级 3-1-1'
+            }]
+          }, {
+            label: '二级 3-2',
+            children: [{
+              label: '三级 3-2-1'
+            }]
+          }]
+        }],
+        defaultProps: {
+          children: 'children',
+          label: 'label'
+        }
     }
   },
   components: {
@@ -52,7 +160,11 @@ export default {
     List,
     Footer,
     Demo1,
-    Demo2
+    Demo2,
+    Testslot,
+    Category,
+    Serach,
+    Gitlist
   },
   methods:{
     //添加一个todo
@@ -92,7 +204,10 @@ export default {
       this.nameItems = this.nameItems.filter((val)=>{
         return val.done === false
       })
-    }
+    },
+     handleNodeClick(data) {
+        console.log(data);
+      }
   },
   watch:{
     nameItems:{
@@ -156,4 +271,39 @@ body {
   border: 1px solid #ddd;
   border-radius: 5px;
 }
+.appCate{
+  display: flex;
+  justify-items: center;
+  justify-content: space-around;
+}
+image ,video{
+  width: 100%;
+}
+
+/* github serach */
+.album {
+  min-height: 50rem; /* Can be removed; just added for demo purposes */
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  background-color: #f7f7f7;
+}
+
+.card {
+  float: left;
+  width: 33.333%;
+  padding: .75rem;
+  margin-bottom: 2rem;
+  border: 1px solid #efefef;
+  text-align: center;
+}
+
+.card > img {
+  margin-bottom: .75rem;
+  border-radius: 100px;
+}
+
+.card-text {
+  font-size: 85%;
+}
+
 </style>
