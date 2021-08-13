@@ -16,6 +16,7 @@
 </template>
 
 <script>
+    import PubSub from 'pubsub-js'
     export default {
         name:"List",
         data(){
@@ -29,16 +30,33 @@
             }
         },
         methods:{
-            saveUsers(dataObj){
+            //事件总线方式
+            // saveUsers(dataObj){
+            //     console.log('list 收到了',dataObj);
+            //     this.listData = {...this.listData,...dataObj}
+            // }
+            //事件订阅
+            saveUsers(_,dataObj){
                 console.log('list 收到了',dataObj);
                 this.listData = {...this.listData,...dataObj}
             }
         },
         mounted(){
-            this.$bus.$on("get-list-data",this.saveUsers)
+            //组件一挂载就绑定事件
+            // this.$bus.$on("get-list-data",this.saveUsers);
+            //组件一挂载就订阅事件
+            this.token = PubSub.subscribe('get-list-data', this.saveUsers);
+            console.log('token',this.token);
         },
         beforeDestroy(){
-            this.$bus.$off("get-list-data")
+            //组件销毁前取消绑定事件
+            // this.$bus.$off("get-list-data");
+             //组件销毁前取消订阅
+            PubSub.unsubscribe(this.token);
+            /**
+             * 
+             * 
+             */
         }
     }
 </script>

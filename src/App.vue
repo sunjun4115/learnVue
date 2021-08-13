@@ -109,7 +109,7 @@ export default {
       categorys:[
         {id:"001",name:"cs",price:'100'},
         {id:"002",name:"lol",price:'200'},
-        {id:"003",name:"jd",price:'300'}
+        {id:"003",name:"jdqs",price:'300'}
       ],
       src:"https://s3.ax1x.com/2021/01/16/srJ1q0.jpg",
       videoUrl:'https://v-cdn.zjol.com.cn/276984.mp4',
