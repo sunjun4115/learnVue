@@ -1,44 +1,38 @@
 <template>
   <div id="app">
-    <h1>Vue Vuex</h1>
-    <Countvuex/>
+    <h1>view router</h1>
+    <Header/>
+    <div class="row">
+      <div class="col-xs-2 col-xs-offset-2">
+        <div class="list-group">
+          <!-- <a class="list-group-item" href="./about.html">About</a>
+          <a class="list-group-item active" href="./home.html">Home</a> -->
+          <router-link class="list-group-item" active-class="active" to="/about">About</router-link>
+          <router-link class="list-group-item" active-class="active" to="/home">Home</router-link>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="panel">
+          <div class="panel-body">
+            <!-- <h2>我是Home的内容</h2> -->
+            <router-view></router-view>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-/* eslint-disable*/
-import Countvuex from './components/Countvuex'
-
-export default {
-  name: 'App',
-  data() {
-    return{
-
+import Header from './components/Header'
+  export default {
+    name: 'App',
+    components:{
+      Header
     }
-  },
-  mounted(){
-        console.log("vc",this);
-    },
-  components: {
-   Countvuex
-  },
-  methods:{
-  },
-  watch:{
-   
   }
-}
 </script>
 
 <style>
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
-
 
 </style>

@@ -1,10 +1,10 @@
 import Vue from 'vue'
+
+
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-
-import store from './vuex/store';
-
 import App from './App.vue'
+import router from './router/index'
 
 Vue.use(ElementUI);
 
@@ -23,10 +23,7 @@ new Vue({
     beforeCreate() {
         Vue.prototype.$bus = this; //安装事件总线
     },
-    mounted() {
-        console.log("vm", this);
-    },
-    store,
+    router,
     render: h => h(App),
     // components:{
     //     App
